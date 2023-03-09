@@ -2,13 +2,28 @@
 using namespace std;
 
 class Circle {
-    private: int radius;
+private: int radius;
 
-    // todo: include appropriate circle methods
+public: Circle(int r){
+    radius = r;
+}
+
+void setRadius(int radius) {
+    this->radius = radius;
+}
+
+int getRadius() {
+    return radius;
+}
+
 };
 
 class Utility {
-    // todo: include appropriate class methods
+public:
+    double calculateArea(Circle c) {
+        int r = c.getRadius();
+        return 3.142 * r * r;
+    }
 };
 
 int main(){
@@ -17,6 +32,9 @@ int main(){
     cout << "Enter the radius of the circle in cm: " << endl;
     cin >> radius;
 
-    // todo: princess code here
+    // princess code here
+    Circle obj(radius);
+    Utility c1;
+    cout << "Area of the circle is " << c1.calculateArea(obj) << "cm2" << endl;
     return 0;
 }
