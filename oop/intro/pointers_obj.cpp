@@ -43,6 +43,14 @@ int main() {
   Node node1 ("victor", 5), node2(node1);
   Node node3 = node2;
   cout << "hello" << endl;
+
+  // ------Pointer and Reference Variables
+  int n = 5, *p = &n, &r = n;
+  // r is just another name for n now
+  // int *const r = &n is same, while const int *r is a pointer to a constant
+  // hence we can do this
+  r = 4; // which changes all the values n, *n and r
+
   return 0;
 }
 
