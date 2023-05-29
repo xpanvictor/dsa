@@ -50,6 +50,23 @@ int main() {
   // int *const r = &n is same, while const int *r is a pointer to a constant
   // hence we can do this
   r = 4; // which changes all the values n, *n and r
+  // WARNING: use Reference Variables carefully, it destroys the information hiding principle
+  //
+  // ----------Pointers to functions
+  double f(double x) {
+    return x * 2;
+  }
+
+  // A summation function to find doubles using pointer of the function
+  double sum(double (*f)(double), int l_lmt, int u_lmt) {
+    double result = 0;
+    for (int i = l_lmt, i < u_lmt, i++) {
+      result += f(i);
+    }
+
+    return result;
+  }
+  cout << sum(f, 1, 5) << endl;
 
   return 0;
 }
