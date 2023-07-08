@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <cstring>
+#include <iostream>
 using namespace std;
 
 class Personal {
