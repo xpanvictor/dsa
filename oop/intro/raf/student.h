@@ -2,10 +2,10 @@
 #define STUDENT
 #include "personal.h"
 
-class STUDENT : public Personal {
+class Student : public Personal {
   public:
     Student();
-    Student(char*, char* char*, int, long, char*);
+    Student(char*, char*, char*, int, long, char*);
     void writeToFile(fstream&) const;
     void readFromFile(fstream&);
     int size() const {
@@ -17,6 +17,10 @@ class STUDENT : public Personal {
     const int majorLen;
     ostream& writeLegibly(ostream&);
     friend ostream& operator<<(ostream& out, Student& sr) {
+      return sr.writeLegibly(out);
+    }
+    istream& readFromConsole(istream&);
+    friend istream& operator>>(istream& in, Student& sr) {
       return sr.readFromConsole(in);
     }
 };
