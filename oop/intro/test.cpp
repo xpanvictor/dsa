@@ -34,8 +34,8 @@ class Num {
 };
 
 int main() {
-  // Num v1 = 4, v2 = 6;
-  // Num v3 = v1 + v2;
+  Num v1 = 4, v2 = 6;
+  Num v3 = v1 + v2;
   std::cout << 3;
 
   return 0;
