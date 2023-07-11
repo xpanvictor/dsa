@@ -18,7 +18,17 @@ void Database<T>::add(T& d) {
 template<class T>
 void Database<T>::modify(T& d) {
   database.open(fName, ios::in | ios::out | ios::binary);
-  
+  // database.seekp(_, ios::cur);
+  T tmp;
+  while(!database.eof()) {
+    database.seekp(_, ios::cur);
+    tmp.readFromFile(database);
+    if (tmp == d) {
+      d.writeToFile(database);
+    }
+    database.close();
+  }
+  // need logic for file not found
 }
 
 template<class T>
