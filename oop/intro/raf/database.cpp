@@ -15,3 +15,24 @@ void Database<T>::add(T& d) {
   database.close();
 }
 
+template<class T>
+void Database<T>::modify(T& d) {
+  database.open(fName, ios::in | ios::out | ios::binary);
+  
+}
+
+template<class T>
+bool Database<T>::find(T& d) {
+  T tmp;
+  database.open(fName, ios::in | ios::binary);
+  while(!database.eof()) {
+    tmp.readFromFile(database);
+    if (tmp == d) {// overloaded ==
+      database.close();
+      return true;
+    }
+  }
+  database.close();
+  return false;
+}
+
