@@ -21,14 +21,18 @@ void Database<T>::modify(T& d) {
   // database.seekp(_, ios::cur);
   T tmp;
   while(!database.eof()) {
-    database.seekp(_, ios::cur);
     tmp.readFromFile(database);
     if (tmp == d) {
-      d.writeToFile(database);
+      cin >> tmp;
+      database.seekp(-d.size(), ios::cur);
+      tmp.writeToFile(database);
+      database.close();
+      return;
     }
-    database.close();
   }
-  // need logic for file not found
+  // logic for file not found
+  database.close();
+  cout << "The record to modify is not in the database!";
 }
 
 template<class T>
