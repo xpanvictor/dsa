@@ -1,6 +1,7 @@
 #include "iostream"
 #include "string.h"
 #include "stdlib.h"
+#include "math.h"
 using namespace std;
 
 struct Node {
@@ -60,7 +61,7 @@ double root(double (*fn)(double), double a, double b, double epsilon) {
 // A summation function to find doubles using pointer of the function
 double sum(double (*f)(double), int l_lmt, int u_lmt) {
   double result = 0;
-    for (int i = l_lmt, i < u_lmt, i++) {
+    for (int i = l_lmt; i < u_lmt; i++) {
       result += f(i);
     }
 
