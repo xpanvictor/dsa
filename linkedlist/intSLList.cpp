@@ -52,5 +52,36 @@ int IntSLList::deleteFromTail() {
 }
 
 void IntSLList::deleteNode(int el) {
+  if (!isEmpty()) {
+    if (head == tail && el == head->info) { // one element
+      delete head;
+      head = tail = 0;
+    } else if (head->info == el) {
+      IntSLLNode * tmp = head;
+      head = head->next;
+      delete tmp;
+    } else {// more than one element
+      IntSLLNode * pred, * tmp;
+      for (
+          pred = head, tmp = head->next;
+          tmp != 0 && !(tmp->info == el);
+          pred = pred->next, tmp = tmp->next
+        );
+      // the tmp and pred deleted. tmp if el found is solved this way
+      if (tmp != 0) {// for loop stopped cos el was found
+        // remove tmp from list by changing prev's next to the next value
+        pred->next = tmp->next;
+        if (tmp == tail)
+          tail = pred; // push tail to previous
+        delete tmp;
+      }
+    }
+  }
+}
+
+bool IntSLList::isInList(int el) const {
+  IntSLLNode * tmp;
+  for (tmp = head; tmp != 0 && !(tmp->info == el); tmp = tmp->next);
+  return tmp != 0; // for loop stopped where it was el
 }
 
