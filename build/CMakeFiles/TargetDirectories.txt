@@ -1,0 +1,3 @@
+/home/xpan/Documents/dsa/build/CMakeFiles/dsa.dir
+/home/xpan/Documents/dsa/build/CMakeFiles/edit_cache.dir
+/home/xpan/Documents/dsa/build/CMakeFiles/rebuild_cache.dir

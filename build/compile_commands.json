@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/xpan/Documents/dsa/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/dsa.dir/main.cpp.o -c /home/xpan/Documents/dsa/main.cpp",
+  "file": "/home/xpan/Documents/dsa/main.cpp",
+  "output": "CMakeFiles/dsa.dir/main.cpp.o"
+},
+{
+  "directory": "/home/xpan/Documents/dsa/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/dsa.dir/oop/AreaCalculator.cpp.o -c /home/xpan/Documents/dsa/oop/AreaCalculator.cpp",
+  "file": "/home/xpan/Documents/dsa/oop/AreaCalculator.cpp",
+  "output": "CMakeFiles/dsa.dir/oop/AreaCalculator.cpp.o"
+}
+]
