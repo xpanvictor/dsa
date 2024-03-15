@@ -28,7 +28,7 @@ public:
         out << p1.name << endl;
         return out;
     }
-    int age() { return age; }
+    int get_age() { return age; }
 
 private:
     char *name;
@@ -37,9 +37,10 @@ private:
 
 class lesserAge
 {
-    bool operator(const SmallerHuman &h1, const SmallerHuman &h2)
+public:
+    bool operator()(SmallerHuman &h1, SmallerHuman &h2) const
     {
-        return h1.age() < h2.age();
+        return h1.get_age() < h2.get_age();
     }
 };
 
