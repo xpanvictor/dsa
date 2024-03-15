@@ -25,7 +25,7 @@ public:
     }
     friend ostream &operator<<(ostream &out, const SmallerHuman &p1)
     {
-        out << p1.name << endl;
+        out << p1.name << "---" << p1.age << endl;
         return out;
     }
     int get_age() { return age; }
@@ -98,7 +98,7 @@ int main()
     }
 
     // Let's test out the implementation with a function object for prioritizing
-    SmallerHuman people[] = {SmallerHuman("victor", 12), SmallerHuman("xpan", 9)};
+    SmallerHuman people[] = {SmallerHuman("victor", 9), SmallerHuman("xpan", 12)};
 
     priority_queue<SmallerHuman> hq1(people, people + 2);
     priority_queue<SmallerHuman, vector<SmallerHuman>, greater<SmallerHuman>> hq2(people, people + 2);
