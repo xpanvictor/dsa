@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 class SmallerHuman
 {
 public:
@@ -29,13 +28,20 @@ public:
         out << p1.name << endl;
         return out;
     }
+    int age() { return age; }
 
 private:
     char *name;
     int age;
 };
 
-
+class lesserAge
+{
+    bool operator(const SmallerHuman &h1, const SmallerHuman &h2)
+    {
+        return h1.age() < h2.age();
+    }
+};
 
 int main()
 {
@@ -90,12 +96,12 @@ int main()
         cout << top_val << endl;
     }
 
-
     // Let's test out the implementation with a function object for prioritizing
     SmallerHuman people[] = {SmallerHuman("victor", 12), SmallerHuman("xpan", 9)};
 
     priority_queue<SmallerHuman> hq1(people, people + 2);
     priority_queue<SmallerHuman, vector<SmallerHuman>, greater<SmallerHuman>> hq2(people, people + 2);
+    priority_queue<SmallerHuman, vector<SmallerHuman>, lesserAge> hq3(people, people + 2);
 
     cout << "hq1 uses '<' for lexicographical ordering" << endl;
     while (!hq1.empty())
@@ -117,6 +123,15 @@ int main()
         cout << top_val; // Overloaded << operator to print SmallerHuman object
     }
 
+    cout << "hq3 uses user defined lesser member function for age ordering" << endl;
+    while (!hq3.empty())
+    {
+        // popping requires removing the first element
+        // however, STL queue return for pop is void, so we retrieve first
+        SmallerHuman top_val = hq3.top(); // first store top value of queue
+        hq3.pop();
+        cout << top_val; // Overloaded << operator to print SmallerHuman object
+    }
+
     return 0;
 }
-
