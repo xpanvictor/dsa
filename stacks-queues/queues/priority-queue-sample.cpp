@@ -2,8 +2,40 @@
 
 #include <iostream>
 #include <queue>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
+
+
+class SmallerHuman
+{
+public:
+    SmallerHuman(char *_name, int _age)
+    {
+        name = _name;
+        age = _age;
+    }
+    bool operator<(const SmallerHuman &p) const
+    { // oh const referencing-forgotten the actual name
+        return strcmp(name, p.name);
+    }
+    bool operator>(const SmallerHuman &p) const
+    {
+        return (this->name != p.name) && !(*this < p);
+    }
+    friend ostream &operator<<(ostream &out, const SmallerHuman &p1)
+    {
+        out << p1.name << endl;
+        return out;
+    }
+
+private:
+    char *name;
+    int age;
+};
+
+
 
 int main()
 {
@@ -58,5 +90,33 @@ int main()
         cout << top_val << endl;
     }
 
+
+    // Let's test out the implementation with a function object for prioritizing
+    SmallerHuman people[] = {SmallerHuman("victor", 12), SmallerHuman("xpan", 9)};
+
+    priority_queue<SmallerHuman> hq1(people, people + 2);
+    priority_queue<SmallerHuman, vector<SmallerHuman>, greater<SmallerHuman>> hq2(people, people + 2);
+
+    cout << "hq1 uses '<' for lexicographical ordering" << endl;
+    while (!hq1.empty())
+    {
+        // popping requires removing the first element
+        // however, STL queue return for pop is void, so we retrieve first
+        SmallerHuman top_val = hq1.top(); // first store top value of queue
+        hq1.pop();
+        cout << top_val; // Overloaded << operator to print SmallerHuman object
+    }
+
+    cout << "hq2 uses '>' for lexicographical ordering" << endl;
+    while (!hq2.empty())
+    {
+        // popping requires removing the first element
+        // however, STL queue return for pop is void, so we retrieve first
+        SmallerHuman top_val = hq2.top(); // first store top value of queue
+        hq2.pop();
+        cout << top_val; // Overloaded << operator to print SmallerHuman object
+    }
+
     return 0;
 }
+
