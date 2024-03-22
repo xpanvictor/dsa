@@ -12,7 +12,7 @@ class Stack : public stack<T>
 public:
   T pop()
   {
-    T tmp = top();
+    T tmp = this->top();
     stack<T>::pop();
     return tmp;
   }
@@ -49,7 +49,7 @@ private:
   Stack<Cell> mazeStack;
   char **store; // Array of array of chars .i.e array of strings
   // utility functions
-  void pushUninvited(int x, int y);
+  void pushUnvisited(int x, int y);
   friend ostream &operator<<(ostream &, const Maze &);
   int rows, cols;
 };
@@ -58,7 +58,9 @@ private:
 Maze::Maze() : entryMarker('m'), exitMarker('e'), visitedMarker('.'), moveableMarker('0'), wallMarker('1')
 {
   Stack<char *> mazeRows;
-  cout << "Enter each row followed by <C-n>" << endl;
+  cout << "Enter a rectangular maze using the following "
+       << "characters:\nm - entry\ne - exit\n1 - wall\n0 - passage\n"
+       << "Enter one line at at time; end with Ctrl-z:\n";
   char str[80], *s;
   int col, row = 0;
 
@@ -88,11 +90,76 @@ Maze::Maze() : entryMarker('m'), exitMarker('e'), visitedMarker('.'), moveableMa
   }
 
   rows = row;
-  store
+  store = new char *[rows + 2];
+  // top layer of walls
+  store[0] = new char[cols + 3];
+  for (; !mazeRows.empty(); row--)
+  {
+    store[row] = mazeRows.pop(); // fill in store rows-1 to 1
+  }
+  // lower layer of walls
+  store[rows + 1] = new char[cols + 3];
+  // mark end of each wall row with term char
+  store[0][cols + 2] = store[rows + 1][cols + 2] = '\0';
+  // fill border line rows with walls
+  for (col = 0; col <= cols + 1; col++)
+  {
+    store[0][col] = wallMarker;
+    store[rows + 1][col] = wallMarker;
+  }
+}
+
+void Maze::pushUnvisited(int x, int y)
+{
+  if (store[x][y] == moveableMarker || store[x][y] == exitMarker)
+  {
+    // then can add to unvisited stack
+    mazeStack.push(Cell(x, y));
+  }
+}
+
+// Now the algorithm for exiting a maze
+void Maze::exitMaze()
+{
+  int cx, cy = currentCell.x;
+  cy = currentCell.y;
+
+  while (!(currentCell == exitCell))
+  {
+    store[cx][cy] = visitedMarker;
+    // checking neighbors
+    // left
+    pushUnvisited(cx - 1, cy);
+    // right
+    pushUnvisited(cx + 1, cy);
+    // top
+    pushUnvisited(cx, cy - 1);
+    // lower
+    pushUnvisited(cx, cy + 1);
+
+    // error out if mazeStack is empty
+    if (mazeStack.empty())
+    {
+      cout << *this;
+      cout << "No solution";
+      throw std::invalid_argument("No solution for this maze");
+    }
+    currentCell = mazeStack.pop();
+    cout << *this;
+    cout << "Successfully found exit";
+  }
+}
+
+ostream &operator<<(ostream &out, const Maze &maze)
+{
+  for (int row = 0; row <= maze.rows + 1; row++)
+    out << maze.store[row] << endl;
+  out << endl;
+  return out;
 }
 
 int main(int argc, char *argv[])
 {
-
+  Maze().exitMaze();
   return 0;
 }
