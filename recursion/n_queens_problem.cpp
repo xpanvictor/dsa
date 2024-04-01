@@ -49,13 +49,13 @@ ChessBoard::initializeBoard ()
     {
       leftDiagonals[i] = rightDiagonals[i] = available;
     }
-  cout << "Init: " << rightDiagonals[3] << rightDiagonals[6] << endl;
   howMany = 0;
 }
 
 void
 ChessBoard::printBoard (ostream &out)
 {
+  cout << "Soln (" << howMany + 1 << "): ";
   for (int row = 0; row < squares; row++)
     {
       cout << "(" << row << ", " << positionInRow[row] << "), ";
@@ -83,6 +83,7 @@ ChessBoard::putQueen (int row)
               printBoard (cout);
               howMany++;
             }
+          positionInRow[row] = -1;
           columns[col] = available;
           leftDiagonals[row + col] = available;
           rightDiagonals[row - col + norms] = available;
