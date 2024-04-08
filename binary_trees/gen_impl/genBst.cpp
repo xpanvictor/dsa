@@ -40,3 +40,16 @@ BST<T>::breadthFirst ()
         }
     }
 }
+
+template <class T>
+void
+BST<T>::inorder (BstNode<T> *p)
+{
+  // uses double recursion to accomplish LVR inorder traversin
+  if (p != 0)
+    {
+      inorder (p->left);
+      visit (p); // inner visit layer
+      inorder (p->right);
+    }
+}
