@@ -19,3 +19,24 @@ BST<T>::search (BstNode<T> *p, const T &el) const
   // Not found, return 0
   return 0;
 }
+
+template <class T>
+void
+BST<T>::breadthFirst ()
+{
+  Queue<BstNode<T> *> tree_queue;
+  BstNode<T> *p = root;
+  if (p != 0)
+    {
+      tree_queue.enqueue (p);
+      while (!tree_queue.empty ())
+        {
+          p = tree_queue.dequeue ();
+          visit (p);
+          if (p->left != 0)
+            tree_queue.enqueue (p->left);
+          if (p->right != 0)
+            tree_queue.enqueue (p->right);
+        }
+    }
+}
