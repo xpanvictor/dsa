@@ -53,3 +53,24 @@ BST<T>::inorder (BstNode<T> *p)
       inorder (p->right);
     }
 }
+
+template <class T>
+void
+BST<T>::iterativePreorder ()
+{
+  // uses a stack for operation
+  Stack<BstNode<T> *> iter_stack;
+  BstNode<T> *p = root;
+  if (p != 0)
+    {
+      p = iter_stack.pop ();
+      while (p != 0)
+        {
+          visit (p); // visit first
+          if (p->right != 0)
+            iter_stack.push (p->right);
+          if (p->left != 0) // pushing left later to be on top of stack
+            iter_stack.push (p->left);
+        }
+    }
+}
