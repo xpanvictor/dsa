@@ -63,9 +63,10 @@ BST<T>::iterativePreorder ()
   BstNode<T> *p = root;
   if (p != 0)
     {
-      p = iter_stack.pop ();
-      while (p != 0)
+      iter_stack.push (p);
+      while (!iter_stack.empty ())
         {
+          p = iter_stack.pop ();
           visit (p); // visit first
           if (p->right != 0)
             iter_stack.push (p->right);
