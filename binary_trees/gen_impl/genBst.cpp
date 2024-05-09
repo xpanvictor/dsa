@@ -75,3 +75,36 @@ BST<T>::iterativePreorder ()
         }
     }
 }
+
+template <class T>
+void
+BST<T>::iterativePostorder ()
+{
+  // Stack to traverse with
+  Stack<BstNode<T> *> travStack;
+  BstNode<T> *p = root, *q = root; // we use q as a marker for visited
+  while (p != 0)
+    {
+      // we have to go all the way left, first part
+      for (; p->left != 0; p = p->left)
+        travStack.push (p); // pushing so we can have a way to climb back up
+      // check if there's no right or we've visited the right so we can visit
+      // current BstNode
+      if (p->right == 0 || p->right == q)
+        {
+          visit (p);
+          q = p; // mark p as visited
+          // check that stack aint empty, else we end fn
+          if (travStack.empty ())
+            return;
+          // go back up by popping from the stack
+          p = travStack.pop ();
+        }
+      // prepare next p by going back up, taking the right element that has
+      // been found by we popped the p before, let's push it back since we are
+      // still ordering
+      travStack.push (p);
+      // then we take the right again
+      p = p->right;
+    }
+}
