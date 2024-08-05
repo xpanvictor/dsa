@@ -108,3 +108,53 @@ BST<T>::iterativePostorder ()
       p = p->right;
     }
 }
+
+template <class T>
+void
+BST<T>::morrisInorder ()
+{
+  // linearize the tree completely
+  BstNode<T> *p = root, *tmp = root;
+  while (p != 0)
+    {
+      // order the left
+      if (p->left == 0)
+        {
+          visit (p);
+          p = p->right; // basically go to the right element and continue
+        }
+      else
+        {
+          // fetch the rightmost node of the currrent left descendant
+          for (tmp = p->left; tmp->right != 0 || tmp->right == p;
+               tmp = tmp->right)
+            ;
+          // make the current node the right of the leftmost node
+          tmp->right = p;
+          // then the new top or "root" will be the current top left
+          p = p->left;
+        }
+    }
+}
+
+template <class T>
+void
+BST<T>::insert (const T &el)
+{
+  BstNode<T> *p = root, *prev = 0;
+  while (p != 0)
+    {
+      prev = p;
+      if (prev->el < el)
+        p = p->right;
+      else
+        p = p->left;
+    }
+
+  if (root == 0)
+    root = new BstNode<T> (el);
+  else if (el < prev->el)
+    prev->left = new BstNode<T> (el);
+  else
+    prev->right = new BstNode<T> (el);
+}
