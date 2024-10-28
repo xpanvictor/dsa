@@ -22,6 +22,7 @@ public:
 
 template <class T> class Queue : public queue<T>
 {
+public:
   T
   dequeue ()
   {
@@ -32,7 +33,7 @@ template <class T> class Queue : public queue<T>
   void
   enqueue (const T &el)
   {
-    push (el);
+    this->push (el);
   }
 };
 
@@ -42,9 +43,9 @@ public:
   BstNode () { left = right = 0; }
   BstNode (const T &el, BstNode<T> *left = 0, BstNode<T> *right = 0)
   {
-    el = el;
-    left = left;
-    right = right;
+    this->el = el;
+    this->left = left;
+    this->right = right;
   }
 
   T el;
@@ -55,6 +56,7 @@ template <class T> class BST
 {
 public:
   BST () { root = 0; }
+  BST (BstNode<T> *r) { root = r; }
 
   void
   clear ()

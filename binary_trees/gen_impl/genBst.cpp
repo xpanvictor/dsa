@@ -90,7 +90,7 @@ BST<T>::iterativePostorder ()
         travStack.push (p); // pushing so we can have a way to climb back up
       // check if there's no right or we've visited the right so we can visit
       // current BstNode
-      if (p->right == 0 || p->right == q)
+      while (p->right == 0 || p->right == q)
         {
           visit (p);
           q = p; // mark p as visited
@@ -106,6 +106,34 @@ BST<T>::iterativePostorder ()
       travStack.push (p);
       // then we take the right again
       p = p->right;
+    }
+}
+
+template <class T>
+void
+BST<T>::iterativeInorder ()
+{
+  BstNode<T> *p = root, *tmp = root;
+  Stack<BstNode<T> *> tStack;
+  // queue all left nodes
+  while (p != 0)
+    {
+      for (; p->left != 0; p = p->left)
+        tStack.push (p);
+      // visit the node with no left again
+      // then we
+      while (!tStack.empty () && p->right == 0)
+        {
+          visit (p);
+          p = tStack.pop ();
+        }
+      // visit p if ended or came here straight
+      visit (p);
+      // check if there's a right node to p
+      if (p->right != 0)
+        p = p->right;
+      else
+        p = 0;
     }
 }
 
@@ -158,3 +186,9 @@ BST<T>::insert (const T &el)
   else
     prev->right = new BstNode<T> (el);
 }
+
+template <class T> void BST<T>::clear (BstNode<T> *el) {};
+template <class T> void BST<T>::preorder (BstNode<T> *el) {};
+template <class T> void BST<T>::postorder (BstNode<T> *el) {};
+
+template class BST<int>;
