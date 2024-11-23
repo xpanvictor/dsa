@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/dsa.dir/link.d"
   "CMakeFiles/dsa.dir/main.cpp.o"
   "CMakeFiles/dsa.dir/main.cpp.o.d"
   "CMakeFiles/dsa.dir/oop/AreaCalculator.cpp.o"

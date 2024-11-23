@@ -1,1 +1,1 @@
-/usr/bin/g++ -g CMakeFiles/dsa.dir/main.cpp.o CMakeFiles/dsa.dir/oop/AreaCalculator.cpp.o -o dsa
+/usr/bin/g++ -g -Wl,--dependency-file,CMakeFiles/dsa.dir/link.d CMakeFiles/dsa.dir/main.cpp.o CMakeFiles/dsa.dir/oop/AreaCalculator.cpp.o -o dsa

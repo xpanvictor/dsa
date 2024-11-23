@@ -43,6 +43,51 @@ BST<T>::breadthFirst ()
 
 template <class T>
 void
+BST<T>::balance (T data[], int first, int last)
+{
+  // data is a sorted array
+  if (first < last)
+    {
+      int middle = (first + last) / 2;
+      T root = data[middle];
+      insert (root);
+      // balance next left sub root and then right
+      balance (data, first, middle - 1);
+      balance (data, middle + 1, last);
+    }
+}
+
+template <class T>
+void
+BST<T>::createBackbone ()
+{
+  BstNode<T> *tmp = root, *gpr = 0, *ch;
+  while (tmp != 0)
+    {
+      if (tmp->left != 0 && gpr != 0)
+        {
+          // rotate right
+          ch = tmp->left;
+          // gpr of tmp ch becomes ch parent
+          gpr->right = ch;
+          // ch right subtree becomes left subtree of tmp
+          tmp->left = ch->right;
+          // node ch becomes tmp parent
+          ch->right = tmp;
+          // set tmp to ch that just became parent
+          tmp = ch;
+          cout << ch->el << endl;
+        }
+      else
+        {
+          gpr = tmp;
+          tmp = tmp->right;
+        }
+    }
+}
+
+template <class T>
+void
 BST<T>::inorder (BstNode<T> *p)
 {
   // uses double recursion to accomplish LVR inorder traversin
@@ -185,6 +230,50 @@ BST<T>::insert (const T &el)
     prev->left = new BstNode<T> (el);
   else
     prev->right = new BstNode<T> (el);
+}
+
+template <class T>
+void
+BST<T>::findAndDeleteByMerging (const T &el)
+{
+  BstNode<T> *node = root, *prev = 0;
+  // search through the root down
+  while (node != 0)
+    {
+      if (node->el == el)
+        {
+          break;
+        }
+      prev = node;
+      if (el < node->el)
+        node = node->left;
+      else
+        node = node->right;
+    }
+  // if we actually found node, op deletion
+  if (node != 0 && node->el == el)
+    {
+      // for tree, perform del on root
+      if (node == root)
+        deleteByMerging (root);
+      else if (prev->left == node)
+        deleteByMerging (prev->left);
+      else
+        deleteByMerging (prev->right);
+    }
+  else if (root != 0)
+    {
+      // meaning el not in tree
+      cout << "El " << el << " not in tree." << endl;
+    }
+  else
+    cout << "Tree is empty." << endl;
+}
+
+template <class T>
+void
+BST<T>::deleteByMerging (BstNode<T> *p)
+{
 }
 
 template <class T> void BST<T>::clear (BstNode<T> *el) {};

@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/xpan/Documents/dsa/main.cpp" "CMakeFiles/dsa.dir/main.cpp.o" "gcc" "CMakeFiles/dsa.dir/main.cpp.o.d"
   "/home/xpan/Documents/dsa/oop/AreaCalculator.cpp" "CMakeFiles/dsa.dir/oop/AreaCalculator.cpp.o" "gcc" "CMakeFiles/dsa.dir/oop/AreaCalculator.cpp.o.d"
+  "" "dsa" "gcc" "CMakeFiles/dsa.dir/link.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

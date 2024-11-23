@@ -1,4 +1,5 @@
 
+#include <iomanip>
 #include <iostream>
 #include <queue>
 #include <stack>
@@ -65,6 +66,13 @@ public:
     root = 0;
   }
 
+  void
+  printTree ()
+  {
+    print (root);
+    cout << endl;
+  }
+
   bool
   isEmpty ()
   {
@@ -101,10 +109,29 @@ public:
   void iterativePostorder ();
   void morrisInorder ();
   void insert (const T &);
+  void findAndDeleteByMerging (const T &);
+  void deleteByMerging (BstNode<T> *);
+  void balance (T data[], int first, int last);
+  void createBackbone ();
 
 protected:
   BstNode<T> *root; // a pointer to parent node - root
   void clear (BstNode<T> *);
+
+  void
+  print (BstNode<T> *node, int space = 0, int indent = 4)
+  {
+    if (node == nullptr)
+      return;
+    space += indent;
+    // print right child first
+    print (node->right, space);
+    // print this node
+    std::cout << endl;
+    std::cout << std::setw (space) << node->el;
+    // then left child
+    print (node->left, space);
+  }
   // search feature in protected mode
   T *search (BstNode<T> *, const T &) const;
   void preorder (BstNode<T> *);
